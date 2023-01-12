@@ -12,11 +12,14 @@ import torch
 from flask import Flask, request
 from PIL import Image
 
+from core.tensorflow import GetAttackStarsPredictIaCommand
+
 app = Flask(__name__)
 models = {}
 
 DETECTION_URL = "/v1/object-detection/<model>"
 GAME_PREDICTION_URL = "/v1/game-prediction/<model>"
+GAME_PREDICTION_TRAIN = GAME_PREDICTION_URL + "/train"
 
 @app.route(DETECTION_URL, methods=["POST"])
 def predict(model):
@@ -28,25 +31,38 @@ def predict(model):
         im_file = request.files["image"]
         im_bytes = im_file.read()
         im = Image.open(io.BytesIO(im_bytes))
-        results = model_cannons(im)
+        results = yolo_model_cannons(im)
         results.render()
         image = Image.fromarray(results.ims[0])
-        image.show()
-
+        # image.show()
 
         return results.pandas().xyxy[0].to_json(orient="records")
 
+@app.route(GAME_PREDICTION_URL, methods=["POST"])
+def predict_tensor(model):
+    if request.method != "POST":
+        return
+    predic =tensor_model_attack_predict.predict(request.json['data'])
+    return str(predic)
+@app.route(GAME_PREDICTION_URL, methods=["POST"])
+def train_tensor(model):
+    pass
 
+GAME_PREDICTION_TRAIN
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Flask API exposing YOLOv5 model")
-    parser.add_argument("--port", default=5000, type=int, help="port number")
+    parser.add_argument("--port", default=5003, type=int, help="port number")
     parser.add_argument('--model', nargs='+', default=['cannons2'], help='model(s) to run, i.e. --model yolov5n yolov5s')
     opt = parser.parse_args()
 
 
     # SET UP YOLOv5 MODELS
-    model_cannons = torch.hub.load('yolov5/', 'custom', path=f"data/yolo5/cannons2.pt", source='local')
-    model_towers_inferno = torch.hub.load('yolov5/', 'custom', path=f"data/yolo5/cannons.pt", source='local')
+    yolo_model_cannons = torch.hub.load('yolov5/', 'custom', path=f"data/yolo5/cannons2.pt", source='local')
+    yolo_model_towers_inferno = torch.hub.load('yolov5/', 'custom', path=f"data/yolo5/cannons.pt", source='local')
+
+    # SET UP TENSORFLOWS MODELS
+    tensor_model_attack_predict = GetAttackStarsPredictIaCommand()
+
 
     app.run(host="0.0.0.0", port=opt.port)  # debug=True causes Restarting with stat
