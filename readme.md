@@ -23,6 +23,9 @@ IN:
 #### DEFENSES DETECTION
 
   * Canons ()
+  * InfernoTowers ()
+### IMAGE DETECTION
+#### DEFENSES LEVELS
 
 
 
