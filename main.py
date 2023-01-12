@@ -21,13 +21,10 @@ DETECTION_URL = "/v1/object-detection/<model>"
 GAME_PREDICTION_URL = "/v1/game-prediction/<model>"
 GAME_PREDICTION_TRAIN = GAME_PREDICTION_URL + "/train"
 
+
 @app.route(DETECTION_URL, methods=["POST"])
 def predict(model):
-    if request.method != "POST":
-        return
-
     if request.files.get("image"):
-
         im_file = request.files["image"]
         im_bytes = im_file.read()
         im = Image.open(io.BytesIO(im_bytes))
@@ -38,17 +35,19 @@ def predict(model):
 
         return results.pandas().xyxy[0].to_json(orient="records")
 
+
 @app.route(GAME_PREDICTION_URL, methods=["POST"])
 def predict_tensor(model):
-    if request.method != "POST":
-        return
-    predic =tensor_model_attack_predict.predict(request.json['data'])
+
+    predic = tensor_model_attack_predict.predict(request.json['data'])
     return str(predic)
-@app.route(GAME_PREDICTION_URL, methods=["POST"])
+
+
+@app.route(GAME_PREDICTION_TRAIN, methods=["POST"])
 def train_tensor(model):
+    tensor_model_attack_predict.train(request.json['x'],request.json['y'])
     pass
 
-GAME_PREDICTION_TRAIN
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Flask API exposing YOLOv5 model")
