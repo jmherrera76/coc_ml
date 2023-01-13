@@ -1,24 +1,26 @@
+import torch
 from flask import Blueprint, request
 
-blueprint = Blueprint('api_tf', __name__, url_prefix='/v1/tf/attack-stars')
+from core.tensorflow import GetAttackStarsPredictIaCommand
 
-@blueprint.route('/')
-def hello_world():
-    return {'message': 'Hello World!'}
 
-@blueprint.route('/train', methods=[ 'POST'])
-def entities():
-    return {
-        'message': 'This endpoint should create an entity',
-        'method': request.method,
-        'body': request.json
-    }
+def construct_blueprint():
 
-@blueprint.route('/predict', methods=['GET'])
-def entity(entity_id):
-    if request.method == "GET":
-        return {
-            'id': entity_id,
-            'message': 'This endpoint should return the entity {} details'.format(entity_id),
-            'method': request.method
-        }
+    blueprint = Blueprint('tf', __name__, url_prefix='/v1/tf/attack-stars')
+    tensor_model_attack_predict = GetAttackStarsPredictIaCommand()
+
+    @blueprint.route('/hello')
+    def hello_world():
+        return {'message': 'Hello World!'}
+
+    @blueprint.route('/train', methods=[ 'POST'])
+    def train():
+        tensor_model_attack_predict.train(request.json['in'],request.json['out'])
+        return {"train":True}
+
+    @blueprint.route('/predict', methods=['POST'])
+    def predict(entity_id):
+        predic = tensor_model_attack_predict.predict(request.json['data'])
+        return str(predic)
+
+    return blueprint

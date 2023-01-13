@@ -13,11 +13,11 @@ from flask import Flask, request
 from PIL import Image
 
 from core.tensorflow import GetAttackStarsPredictIaCommand
-from blueprints.AttackStars import blueprint as attacks_endpoints
+from blueprints.AttackStars import construct_blueprint as attacks_stars_endpoints
+from blueprints.predict import blueprint as attacks_stars_endpoints
 
 app = Flask(__name__)
 
-app.register_blueprint(attacks_endpoints)
 models = {}
 
 DETECTION_URL = "/v1/object-detection/<model>"
@@ -41,18 +41,18 @@ def predict(model):
 
 @app.route(GAME_PREDICTION_URL, methods=["POST"])
 def predict_tensor(model):
-
-    predic = tensor_model_attack_predict.predict(request.json['data'])
-    return str(predic)
-
+    pass
 
 @app.route(GAME_PREDICTION_TRAIN, methods=["POST"])
 def train_tensor(model):
-    tensor_model_attack_predict.train(request.json['x'],request.json['y'])
+
     pass
 
 
 if __name__ == "__main__":
+
+    app.register_blueprint(attacks_stars_endpoints(), name='api_tf')
+    app.register_blueprint(attacks_stars_endpoints())
     parser = argparse.ArgumentParser(description="Flask API exposing YOLOv5 model")
     parser.add_argument("--port", default=5003, type=int, help="port number")
     parser.add_argument('--model', nargs='+', default=['cannons2'], help='model(s) to run, i.e. --model yolov5n yolov5s')
@@ -64,7 +64,7 @@ if __name__ == "__main__":
     yolo_model_towers_inferno = torch.hub.load('yolov5/', 'custom', path=f"data/yolo5/cannons.pt", source='local')
 
     # SET UP TENSORFLOWS MODELS
-    tensor_model_attack_predict = GetAttackStarsPredictIaCommand()
+    #tensor_model_attack_predict = GetAttackStarsPredictIaCommand()
 
 
     app.run(host="0.0.0.0", port=opt.port)  # debug=True causes Restarting with stat

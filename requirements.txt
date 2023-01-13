@@ -49,3 +49,5 @@ tensorflow>=2.4.1  # TF exports (-cpu, -aarch64, -macos)
 ultralytics  # HUB https://hub.ultralytics.com
 flask
 keras
+
+apiflask
