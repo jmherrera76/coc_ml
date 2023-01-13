@@ -5,8 +5,9 @@ from datetime import datetime
 import numpy as np
 from keras import Sequential
 from keras.layers import Dense
-from keras.saving.legacy.model_config import model_from_json
-import tensorflow as tf
+
+import tensorflow
+
 
 class TensorFlowCommand(ABC):
 
@@ -22,15 +23,19 @@ class GetAttackStarsPredictIaCommand(TensorFlowCommand, ABC):
     def __init__(self )-> None:
 
         self._name = "AttackResultStars"
+
         self._model = Sequential()
         self._model.add(Dense(25, input_dim=4, activation='relu'))
         self._model.add(Dense(50, activation='relu'))
         self._model.add(Dense(1, activation='sigmoid'))
         self._model.compile(loss='mean_squared_error', optimizer='adam', metrics=['binary_accuracy'])
-        self._model.load_weights(f"data/tensorflow/{self._name}.h5")
+        try:
+            self._model.load_weights(f"data/tensorflow/{self._name}.h5")
+        except:
+            pass
 
         log_dir = f"_logs/{self._name}/{datetime.now().strftime('%Y%m%d-%H%M%S')}"
-        self._tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
+        self._tensorboard_callback = tensorflow.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
 
     def predict(self, array_x) -> None:
         _data = np.array([array_x])
@@ -58,7 +63,7 @@ class _cGetAttackStarsPredictIaCommand(TensorFlowCommand, ABC):
         self._model.load_weights('data/tensorflow/AttackResult.h5')
 
         log_dir = f"_logs/{self._name}/{datetime.now().strftime('%Y%m%d-%H%M%S')}"
-        self._tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
+        self._tensorboard_callback = tensorflow.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
 
     def predict(self, array_x) -> None:
         _data = np.array([array_x])

@@ -13,8 +13,11 @@ from flask import Flask, request
 from PIL import Image
 
 from core.tensorflow import GetAttackStarsPredictIaCommand
+from blueprints.AttackStars import blueprint as attacks_endpoints
 
 app = Flask(__name__)
+
+app.register_blueprint(attacks_endpoints)
 models = {}
 
 DETECTION_URL = "/v1/object-detection/<model>"
@@ -57,7 +60,7 @@ if __name__ == "__main__":
 
 
     # SET UP YOLOv5 MODELS
-    yolo_model_cannons = torch.hub.load('yolov5/', 'custom', path=f"data/yolo5/cannons2.pt", source='local')
+    yolo_model_cannons = torch.hub.load('yolov5/', 'custom', path=f"data/yolo5/cannons_v2.pt", source='local')
     yolo_model_towers_inferno = torch.hub.load('yolov5/', 'custom', path=f"data/yolo5/cannons.pt", source='local')
 
     # SET UP TENSORFLOWS MODELS
