@@ -1,0 +1,1 @@
+from apiflask import APIBlueprint

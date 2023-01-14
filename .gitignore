@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/yolov5/
+/_logs/
+/yolov5/
+/utils/data_trainers/attacks_data/_data/
