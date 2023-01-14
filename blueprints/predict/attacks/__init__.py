@@ -7,7 +7,7 @@ blueprint = APIBlueprint('AttackStars', __name__, url_prefix='/v1/predictions/at
 def construct_blueprint():
     tensor_model_attack_predict = GetAttackStarsPredictIaCommand()
     tensor_model_attack_destruction_predict = GetAttackDestructionPredictIaCommand()
-    @blueprint.doc(summary='Predict attack', description='Predicts an attack based on TH and AF')
+    @blueprint.doc(summary='1 - Predict attack', description='Predicts an attack based on TH and AF')
     @blueprint.get('/<int:townhall_attacker>/<int:townhall_defender>/<int:units_level_attacker>/<int:units_level_defender>')
     @blueprint.output(PredictAttackOut)
     def get_attack(townhall_attacker,townhall_defender,units_level_attacker,units_level_defender):
@@ -19,8 +19,8 @@ def construct_blueprint():
         ex.destruction = _destruction
         return ex
 
-    @blueprint.doc(summary='Train NN for atttacks predicts', description='Train NN for atttacks predicts')
-    @blueprint.post('/')
+    @blueprint.doc(summary='2 - Train NN for atttacks predicts', description='Train NN for atttacks predicts')
+    @blueprint.post('/train')
     @blueprint.input(PredictAttackTrain)
     @blueprint.output(PredictAttackOut)
     def post_attack(Resurce):
