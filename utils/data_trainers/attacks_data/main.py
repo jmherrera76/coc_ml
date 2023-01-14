@@ -23,15 +23,15 @@ def load_data():
         stars = data['stars']
         destruction = data['destruction']
         duration = data['duration']
-        out_total.append(int(stars))
+        out_total.append([int(stars),int(destruction)])
         json_file.close()
 
-    return {"in":in_total,
-            "out":out_total }
+    return {"in_train":in_total,
+            "out_train":out_total }
 
 
 def train():
-    response = requests.post('http://localhost:5003/v1/tf/attack-stars/train', json=load_data())
+    response = requests.post('http://localhost:5000/v1/predictions/attack', json=load_data())
     print(response)
 
 train()

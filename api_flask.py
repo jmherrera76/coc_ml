@@ -1,6 +1,7 @@
 from apiflask import APIFlask
 from blueprints.predict.attacks import construct_blueprint as attack_stars_blueprint
-from blueprints.detection import construct_blueprint as detection_stars_blueprint
+from blueprints.detection.defenses import construct_blueprint as detection_defenses_blueprint
+
 
 app = APIFlask(__name__,
                title='API COC ML IA',
@@ -28,8 +29,7 @@ In this example, the tags is manually set. However, in a real world application,
 enough to use the automatic tags feature based on blueprint, see the example for blueprint
 tags under the "examples/blueprint_tags" folder:
 ```
-$ cd ..
-$ cd blueprint_tags
+
 $ flask run
 ```
 The source can be found at [examples/blueprint_tags/app.py][_blueprint_tags].
@@ -74,5 +74,5 @@ app.config['INFO'] = {
 app.config['TERMS_OF_SERVICE'] = 'http://example.com'
 
 app.register_blueprint(attack_stars_blueprint())
-app.register_blueprint(detection_stars_blueprint())
+app.register_blueprint(detection_defenses_blueprint())
 app.run()
