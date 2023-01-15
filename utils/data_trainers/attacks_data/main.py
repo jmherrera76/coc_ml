@@ -31,7 +31,7 @@ def load_data():
 
 
 def train():
-    response = requests.post('http://localhost:5000/v1/predictions/attack', json=load_data())
+    response = requests.post('http://localhost:5000/v1/predictions/attack/train', json=load_data())
     print(response)
 
 train()

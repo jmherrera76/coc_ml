@@ -24,10 +24,7 @@ app.config['SERVERS'] = [
 
 
 app.config['DESCRIPTION'] = """
-The description for this API. It can be very long and **Markdown** is supported.
-In this example, the tags is manually set. However, in a real world application, it will be
-enough to use the automatic tags feature based on blueprint, see the example for blueprint
-tags under the "examples/blueprint_tags" folder:
+Esta API da soporte a todas las necesidades de un bot en para el juego COC en un Machine Learning. 
 ```
 
 $ flask run

@@ -16,12 +16,11 @@ PATH_PT = 'data/yolo5/'
 PATH_YOLO5 = 'yolov5/'
 FILE_NAME_PT = {
     "cannons" : f"{PATH_PT}cannons_v2.pt",
-    "towerinterno" : f"{PATH_PT}cannons_v2.pt"
+    "inferno_towers" : f"{PATH_PT}inferno-towers.pt"
 }
 
 class DetectionOut(Schema):
-    cannons = List(List(Float()),
-                required=True)
+    defenses  = Dict(String(),List(Dict(String(),Float())))
 
 class ImageBase(Schema):
     image = File()
@@ -37,37 +36,40 @@ def construct_blueprint():
 
     yolo5_models = {
         "cannons" : torch.hub.load(PATH_YOLO5, 'custom', path=FILE_NAME_PT['cannons'], source='local'),
-        "towerinterno" : torch.hub.load(PATH_YOLO5, 'custom', path=FILE_NAME_PT['towerinterno'], source='local')
+        "inferno_towers" : torch.hub.load(PATH_YOLO5, 'custom', path=FILE_NAME_PT['inferno_towers'], source='local')
     }
 
 
     @blueprint.doc(summary='', description="Detects a base's defenses by sending a screenshot")
     @blueprint.post('/')
     @blueprint.input(ImageBase, location='files')
-    @blueprint.output(DetectionOut)
     def post_detect_defenses(data):
-        _out = {"cannons" : []}
+        _out = {}
         im_file = data['image']
 
         im_bytes = im_file.read()
         im = Image.open(io.BytesIO(im_bytes))
-        results = yolo5_models['cannons'](im)
-        results.render()
-        image = Image.fromarray(results.ims[0])
-        image.show()
-        _results = results.pandas().xyxy[0].to_dict(orient="records")
-        for item in _results:
-            # CANNONS FOR BASE, ALL 1
-            _out['cannons'].append([item['xmin'],
-                                    item['ymin'],
-                                    item['xmax'],
-                                    item['ymax']])
+        for yolo5_model_key, yolo5_model in yolo5_models.items():
+            _out[yolo5_model_key] = []
+            results = yolo5_model(im)
+
+            # results.render()
+            # image = Image.fromarray(results.ims[0])
+            # image.show()
+
+            _results = results.pandas().xyxy[0].to_dict(orient="records")
+
+            for item in _results:
+                _out[yolo5_model_key].append({"confidence" : item['confidence'],
+                                              "xmin" : item['xmin'],
+                                              "ymin" : item['ymin'],
+                                              "xmax" : item['xmax'],
+                                              "ymax" : item['ymax']})
+
                 # TODO: AQUI SE DEBERIA METER LA DETECCION DE NIVEL POR MEDIO DE SELECCION DE IMAGENES
 
 
-        return _out
-
-        return
+        return {"defenses":_out}
 
 
     @blueprint.doc(summary='Push cannons Weight', description='Push pt weights for cannons yolo5 detection')
