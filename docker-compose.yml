@@ -1,29 +1,9 @@
 version: '3'
 services:
-    boot:
+    coc_ml_api:
         image: jmherrera76/coc_ml
         build:
             context: .
-            args:
-              - DOCKER_BASE=gorialis/discord.py:extras
-              - GIT_USER=jmherrera76
-              - GIT_PASSWORD=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
-              - GIT_EMAIL=jmherrera76@gmail.com
-        environment:
-          - BOT_TOKEN=OTc2MTMyODEwNDE2OTg0MTM1.Ggj5hA.fCMEFPxstZDJHtQph9CDAQSzKsEEP9cUccfgtQ
-          - BOT_PREFIX=_
-          - BOT_DESCRIPTION=bot de ayuda de chickensClan
-          - BOT_CLAN_TAG=2YPC2G0LU
-          - C_WARS=982745297354633276
-          - C_DONATIONS=982746951361630288
-          - C_TROPHIES=982745236562399282
-          - C_DEFAULT=979728636141768764
-          - ANUBIS_URLBASE=http://localhost:6060/
-          - COC_API_TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjczMDRhYjA2LTUyZmMtNDBmOC05NzAzLTQ2N2U3YjIwZWMzYyIsImlhdCI6MTY0OTQwNzQ1NCwic3ViIjoiZGV2ZWxvcGVyL2E5MjA1YjU3LWFiYjQtYjFmMS0xZTQ1LTk5NWFjMzJlZTI1OCIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjkwLjE3My4yNTIuMTM5Il0sInR5cGUiOiJjbGllbnQifV19.j12R_kFtOhSxCmeQEzg9CD88DJ27-GzkkpNn6QLnIEs69Hhf2TOEI6BZJdLSaw_Gna9z1Y07v5nsiK1ODyQsWA
-          - COC_PY_LOGIN=jmherrera76@gmail.com
-          - COC_PY_PASSWORD=Pivierda12
-          - COC_PY_DESCRIPTION=Test beta coc.py
-          - DISCORD_OPERADOR_GUARDIA=https://discord.com/api/webhooks/1036963206180130896/b9XR0AKpcstZSmFOBK45UvDsGmGnibfWq9AFiz_VOEotF96De0UDcLB7DOV2L01JRNER
-          - DISCORD_SUPERVISOR_GUARDIA=https://discord.com/api/webhooks/1036946576754614292/Tp9R_poRhcObNWje0I-DSYJbxpeyljKGRfExPEXC7DdbXoLo0uHVVg-4qQXa5PG4ALTl
-          - DISCORD_COMANDANTE_GUARDIA=https://discord.com/api/webhooks/807997132501024768/vnHSk3EvHgZjEW7zjRP5aTmu2mCj31Ekor9YOwaMlDVGfGuONpI_WHsPdRTSuO1wLI5R
-          - DOCKER_ENVIROMENT=1
+        ports:
+          - 5000:5000
+

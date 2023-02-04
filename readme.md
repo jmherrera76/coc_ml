@@ -1,4 +1,9 @@
 ## MACHINE LEARNING FOR COC 
+## DEPLOY
+```shell
+docker-compose build && docker-compose up
+```
+
 ### Neuronal Network
 #### ATACKS PREDICT
   * Atack Stars

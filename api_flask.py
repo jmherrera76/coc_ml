@@ -72,4 +72,4 @@ app.config['TERMS_OF_SERVICE'] = 'http://example.com'
 
 app.register_blueprint(attack_stars_blueprint())
 # app.register_blueprint(detection_defenses_blueprint())
-app.run()
+app.run(host="0.0.0.0", port=int("5000"), debug=True)
