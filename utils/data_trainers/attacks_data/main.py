@@ -4,7 +4,7 @@ import requests
 import os
 
 def load_data():
-    dir_path = r'_data/'
+    dir_path = r'_data_v1/'
     res = os.listdir(dir_path)
     in_total = []
     out_total = []

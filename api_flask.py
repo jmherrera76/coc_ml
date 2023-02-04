@@ -21,7 +21,7 @@ app.config['SERVERS'] = [
         'url': 'http://test.example.com'
     }
 ]
-
+7
 
 app.config['DESCRIPTION'] = """
 Esta API da soporte a todas las necesidades de un bot en para el juego COC en un Machine Learning. 
@@ -71,5 +71,5 @@ app.config['INFO'] = {
 app.config['TERMS_OF_SERVICE'] = 'http://example.com'
 
 app.register_blueprint(attack_stars_blueprint())
-app.register_blueprint(detection_defenses_blueprint())
+# app.register_blueprint(detection_defenses_blueprint())
 app.run()
