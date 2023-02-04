@@ -2,8 +2,8 @@ version: '3'
 services:
     coc_ml_api:
         image: jmherrera76/coc_ml
-        build:
-            context: .
+#        build:
+#            context: .
         ports:
           - 5000:5000
 
