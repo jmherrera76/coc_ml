@@ -9,6 +9,8 @@ services:
               - GIT_USER=jmherrera76
               - GIT_PASSWORD=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
               - GIT_EMAIL=jmherrera76@gmail.com
+        ports:
+          - 5000:5000
         environment:
           - BOT_TOKEN=OTc2MTMyODEwNDE2OTg0MTM1.Ggj5hA.fCMEFPxstZDJHtQph9CDAQSzKsEEP9cUccfgtQ
           - BOT_PREFIX=_
