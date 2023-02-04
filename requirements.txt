@@ -48,10 +48,8 @@
 # roboflow
 
 # numpy
-tensorflow
-tensorboard
+# tensorflow
+# tensorboard
 flask
-keras
-
-
+# keras
 apiflask
