@@ -1,4 +1,4 @@
-FROM python:3.7.1
+FROM slothai/numpy
 WORKDIR /app
 COPY requirements.txt ./
 RUN pip3 install -r requirements.txt
