@@ -21,13 +21,10 @@ app.config['SERVERS'] = [
         'url': 'http://test.example.com'
     }
 ]
-
+7
 
 app.config['DESCRIPTION'] = """
-The description for this API. It can be very long and **Markdown** is supported.
-In this example, the tags is manually set. However, in a real world application, it will be
-enough to use the automatic tags feature based on blueprint, see the example for blueprint
-tags under the "examples/blueprint_tags" folder:
+Esta API da soporte a todas las necesidades de un bot en para el juego COC en un Machine Learning. 
 ```
 
 $ flask run
@@ -74,5 +71,5 @@ app.config['INFO'] = {
 app.config['TERMS_OF_SERVICE'] = 'http://example.com'
 
 app.register_blueprint(attack_stars_blueprint())
-app.register_blueprint(detection_defenses_blueprint())
+# app.register_blueprint(detection_defenses_blueprint())
 app.run()

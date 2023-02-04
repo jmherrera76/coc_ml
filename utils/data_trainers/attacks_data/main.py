@@ -4,7 +4,7 @@ import requests
 import os
 
 def load_data():
-    dir_path = r'_data/'
+    dir_path = r'_data_v1/'
     res = os.listdir(dir_path)
     in_total = []
     out_total = []
@@ -31,7 +31,7 @@ def load_data():
 
 
 def train():
-    response = requests.post('http://localhost:5000/v1/predictions/attack', json=load_data())
+    response = requests.post('http://localhost:5000/v1/predictions/attack/train', json=load_data())
     print(response)
 
 train()
