@@ -5,7 +5,7 @@
 #gitpython
 #ipython  # interactive notebook
 #matplotlib>=3.2.2
-numpy>=1.18.5
+# numpy>=1.18.5
 #opencv-python>=4.1.1
 #Pillow>=7.1.2
 #psutil  # system resources
@@ -19,7 +19,7 @@ numpy>=1.18.5
 # protobuf<=3.20.1  # https://github.com/ultralytics/yolov5/issues/8012
 
 # Logging ---------------------------------------------------------------------
-tensorboard>=2.4.1
+
 # clearml>=1.2.0
 # comet
 
@@ -34,7 +34,7 @@ seaborn>=0.11.0
 # nvidia-pyindex  # TensorRT export
 # nvidia-tensorrt  # TensorRT export
 # scikit-learn<=1.1.2  # CoreML quantization
-tensorflow>=2.4.1  # TF exports (-cpu, -aarch64, -macos)
+# tensorflow>=2.4.1  # TF exports (-cpu, -aarch64, -macos)
 # tensorflowjs>=3.9.0  # TF.js export
 # openvino-dev  # OpenVINO export
 
@@ -46,8 +46,13 @@ tensorflow>=2.4.1  # TF exports (-cpu, -aarch64, -macos)
 # albumentations>=1.0.3
 # pycocotools>=2.0.6  # COCO mAP
 # roboflow
+
+numpy
+tensorflow
+tensorboard
 ultralytics  # HUB https://hub.ultralytics.com
 flask
 keras
+
 
 apiflask
