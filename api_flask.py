@@ -1,6 +1,6 @@
 from apiflask import APIFlask
 from blueprints.predict.attacks import construct_blueprint as attack_stars_blueprint
-from blueprints.detection.defenses import construct_blueprint as detection_defenses_blueprint
+# from blueprints.detection.defenses import construct_blueprint as detection_defenses_blueprint
 
 
 app = APIFlask(__name__,
