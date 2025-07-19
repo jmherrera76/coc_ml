@@ -21,7 +21,7 @@ app.config['SERVERS'] = [
         'url': 'http://test.example.com'
     }
 ]
-7
+
 
 app.config['DESCRIPTION'] = """
 Esta API da soporte a todas las necesidades de un bot en para el juego COC en un Machine Learning. 

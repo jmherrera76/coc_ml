@@ -13,8 +13,8 @@ from flask import Flask, request
 from PIL import Image
 
 from core.tensorflow import GetAttackStarsPredictIaCommand
-from blueprints.AttackStars import construct_blueprint as attacks_stars_endpoints
-from blueprints.predict import blueprint as attacks_stars_endpoints
+# from blueprints.AttackStars import construct_blueprint as attacks_stars_endpoints
+from blueprints.predict import attacks as attacks_stars_endpoints
 
 app = Flask(__name__)
 
